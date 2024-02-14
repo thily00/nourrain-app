@@ -28,7 +28,7 @@ const LoginScreen = ({navigation}: Props): React.JSX.Element => {
         <Text mb="$10">Veuillez renseigner vos identifiants pour vous connecter</Text>
 
         <TextInputField label='Email' placeholder='Entrez votre adresse email'/>
-        <TextInputField label='Mot de passe' placeholder='Entrez votre mot de passe'/>
+        <TextInputField label='Mot de passe' placeholder='Entrez votre mot de passe' type='password'/>
         <Pressable>
           <Text fontSize="$sm" textAlign='right' color="$blue">Mot de passe oublié ?</Text>
         </Pressable>
