@@ -12,6 +12,10 @@ const OnboardingScreen = ({navigation}: Props): React.JSX.Element => {
     navigation.navigate('login') 
   }  
 
+  const goToregister = () => {
+    navigation.navigate('register')
+  }
+
   return (
     <CustomSafeArea statusBarStyle='dark-content' statusBarColor='white'>
       <Box flex={1} bg="$white" px="$4" pt="$10">
@@ -20,7 +24,7 @@ const OnboardingScreen = ({navigation}: Props): React.JSX.Element => {
 
         <VStack position='absolute' alignSelf='center' bottom={Platform.OS === 'ios' ? "$10" : "$4"} gap="$4" width="$full">
             <BaseButton name='Se connecter' todo={goToLogin} btnVariant='solid'/>
-            <BaseButton name="S'inscrire" todo={() => console.log('go to register')} btnVariant='outline'/>
+            <BaseButton name="S'inscrire" todo={goToregister} btnVariant='outline'/>
         </VStack>
       </Box>
     </CustomSafeArea>
