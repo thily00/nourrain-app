@@ -6,33 +6,48 @@ import React from 'react'
 
 type TextInputFieldPropd = {
     label?: string,
+    value?: string,
     placeholder: string,
-    type?: "text" | "password"
+    type?: "text" | "password",
+    onChange?: (value: string) => void
 }
 
 const TextInputField: React.FC<TextInputFieldPropd> = ({
     label,
     placeholder,
-    type
+    type,
+    value,
+    onChange
 }): React.JSX.Element => {
-  const [showPassword, setShowPassword] = React.useState(false)
+  const [showText, setShowText] = React.useState(false)
 
   const tooglePassword = () => {
-    setShowPassword(!showPassword)
+    setShowText(!showText)
   }
 
+  React.useEffect(() => {
+    if(type === "text") {
+      setShowText(true)
+    }
+
+    if(type === "password") {
+      setShowText(showText)
+    }
+  }, [showText])
 
   return (
     <Box mb="$4" position='relative'>
         { label && <Text style={{marginBottom: 5, fontWeight:'500'}}>{label}</Text> }
         <TextInput
+            value={value}
+            onChangeText={onChange}
             placeholder={placeholder}
-            secureTextEntry={!showPassword}
+            secureTextEntry={!showText}
             style={{ height: 50, borderColor: 'gray', backgroundColor:'#f1f4f9', borderRadius: 10, paddingHorizontal:10 }}
         />
          { type === "password" && (
           <Pressable onPress={tooglePassword} position='absolute' bottom="$4" right="$2">
-             <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} color="$secondary300"/>
+             <InputIcon as={showText ? EyeIcon : EyeOffIcon} color="$secondary300"/>
           </Pressable>
         )}
     </Box>
