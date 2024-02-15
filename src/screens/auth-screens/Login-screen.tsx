@@ -27,14 +27,6 @@ const LoginScreen = ({navigation}: Props): React.JSX.Element => {
     navigation.navigate('register')
   }
 
-  const onEmailChange = (value: string) => {
-    setEmail(value)
-  }
-
-  const onPasswordChange = (value: string) => {
-    setPassword(value)
-  }
-
   return (
     <CustomSafeArea statusBarStyle='dark-content' statusBarColor='white'>
       <Box flex={1} bg="$white" px="$4" pt="$10">
@@ -43,19 +35,19 @@ const LoginScreen = ({navigation}: Props): React.JSX.Element => {
           <Feather name="arrow-left" size={24} color="black" />
         </Pressable>
 
-        <Text fontSize="$2xl" color='$black' mt="$10">Bienvenue 👋</Text>
+        <Text fontSize="$2xl" color='$black' pt="$2" mt="$10">Bienvenue 👋</Text>
         <Text mb="$10">Veuillez renseigner vos identifiants pour vous connecter</Text>
 
-        <TextInputField label='Email *' placeholder='Entrez votre adresse email' type='text' value={email} onChange={onEmailChange}/>
-        <TextInputField label='Mot de passe *' placeholder='Entrez votre mot de passe' type='password' value={password} onChange={onPasswordChange}/>
+        <TextInputField label='Email *' placeholder='Entrez votre adresse email' type='text' value={email} onChange={setEmail}/>
+        <TextInputField label='Mot de passe *' placeholder='Entrez votre mot de passe' type='password' value={password} onChange={setPassword}/>
         <Pressable>
-          <Text fontSize="$sm" textAlign='right' color="$blue">Mot de passe oublié ?</Text>
+          <Text fontSize="$sm" textAlign='right' color="$primary500">Mot de passe oublié ?</Text>
         </Pressable>
 
         <VStack position='absolute' alignSelf='center' bottom={Platform.OS === 'ios' ? "$10" : "$4"} gap="$4" width="$full">
             <BaseButton name='Se connecter' todo={loginUser} btnVariant='solid'/>
             <Pressable onPress={goToregister}>
-              <Text fontSize="$sm" textAlign='center'>Vous n'avez pas de compte ? <Text color="$blue" fontWeight='$semibold'>S'inscrire</Text></Text>
+              <Text fontSize="$sm" textAlign='center'>Vous n'avez pas de compte ? <Text color="$primary500" fontWeight='$semibold'>S'inscrire</Text></Text>
             </Pressable>
         </VStack>
       </Box>
