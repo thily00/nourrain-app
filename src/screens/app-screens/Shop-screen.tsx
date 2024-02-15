@@ -1,9 +1,20 @@
 import CustomSafeArea from "@/components/shared/CustomSafeArea";
-import BaseButton from "@/components/shared/BaseButton";
-import { Box, Text, VStack, ScrollView, Pressable } from "@gluestack-ui/themed";
+import { Box, Text, ScrollView, Pressable } from "@gluestack-ui/themed";
 import React from "react";
+import {
+  StripeProvider,
+  CardField,
+  useStripe,
+  useConfirmPayment,
+} from "@stripe/stripe-react-native";
 
 const ShopScreen = (): React.JSX.Element => {
+  const { confirmPayment, loading } = useConfirmPayment();
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+
+  const handlePress = async () => {
+    console.log("open stripe");
+  };
   return (
     <CustomSafeArea>
       <ScrollView flex={1} bg="$white" pt="$4" px="$4">
@@ -15,7 +26,7 @@ const ShopScreen = (): React.JSX.Element => {
             Pack de 5 guirk
           </Text>
           <Pressable
-            onPress={() => console.log("test")}
+            onPress={handlePress}
             bg="$grey"
             rounded="$md"
             mb="$4"
