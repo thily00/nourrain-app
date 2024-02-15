@@ -5,5 +5,6 @@ export { default as OnboardingScreen } from "./auth-screens/Onboarding-screen";
 
 // App Screens
 export { default as HomeScreen } from "./app-screens/Home-screen";
-export { default as ManageScreen } from "./app-screens/Manage-nourrain";
+export { default as ManageScreen } from "./app-screens/Manage-nourrain-screen";
 export { default as ShopScreen } from "./app-screens/Shop-screen";
+export { default as NourrainScreen } from "./app-screens/Nourrain-screen";

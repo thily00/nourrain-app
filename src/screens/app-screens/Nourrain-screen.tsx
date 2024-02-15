@@ -2,14 +2,20 @@ import CustomSafeArea from "@/components/shared/CustomSafeArea";
 import BaseButton from "@/components/shared/BaseButton";
 import { Box, Text, VStack, ScrollView } from "@gluestack-ui/themed";
 import React from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const ManageScreen = (): React.JSX.Element => {
+type Props = NativeStackScreenProps<any>;
+const NourrainScreen = ({ navigation }: Props): React.JSX.Element => {
+    const goToManageScreen = () => {
+        navigation.navigate("ManageNourrain");
+    }
+
   return (
     <CustomSafeArea>
       <ScrollView flex={1} bg="$white" pt="$4" px="$4">
         <BaseButton
           name="Gérer"
-          todo={() => console.log("test")}
+          todo={goToManageScreen}
           btnVariant="solid"
         />
         <Box bg="$white">
@@ -49,4 +55,4 @@ const ManageScreen = (): React.JSX.Element => {
   );
 };
 
-export default ManageScreen;
+export default NourrainScreen;

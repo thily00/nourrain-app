@@ -6,8 +6,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type Props = NativeStackScreenProps<any>;
 const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
-  const goToManage = () => {
-    navigation.navigate("Manage");
+  const goToNourrainScreen = () => {
+    navigation.navigate("Nourrain");
   };
   const goToShop = () => {
     navigation.navigate("Shop");
@@ -42,7 +42,7 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
         </Text>
 
         <Pressable
-          onPress={goToManage}
+          onPress={goToNourrainScreen}
           bg="$grey"
           rounded="$md"
           mb="$4"

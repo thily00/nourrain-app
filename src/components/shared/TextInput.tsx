@@ -10,6 +10,8 @@ type TextInputFieldPropd = {
     placeholder: string,
     type?: "text" | "password",
     onChange?: (value: string) => void
+    multiline?: boolean
+    nbOfLines?: number
 }
 
 const TextInputField: React.FC<TextInputFieldPropd> = ({
@@ -17,7 +19,9 @@ const TextInputField: React.FC<TextInputFieldPropd> = ({
     placeholder,
     type,
     value,
-    onChange
+    onChange,
+    multiline,
+    nbOfLines
 }): React.JSX.Element => {
   const [showText, setShowText] = React.useState(false)
 
@@ -43,6 +47,8 @@ const TextInputField: React.FC<TextInputFieldPropd> = ({
             onChangeText={onChange}
             placeholder={placeholder}
             secureTextEntry={!showText}
+            multiline={true}
+            numberOfLines={4}
             style={{ height: 50, borderColor: 'gray', backgroundColor:'#f1f4f9', borderRadius: 10, paddingHorizontal:10 }}
         />
          { type === "password" && (
