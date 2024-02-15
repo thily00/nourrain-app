@@ -19,7 +19,7 @@ const OnboardingScreen = ({navigation}: Props): React.JSX.Element => {
   return (
     <CustomSafeArea statusBarStyle='dark-content' statusBarColor='white'>
       <Box flex={1} bg="$white" px="$4" pt="$10">
-        <Text fontSize="$2xl" color='$black' mt="$10" textAlign='center'>NOURRAIN</Text>
+        <Text fontSize="$2xl" color='$black' pt="$2" mt="$10" textAlign='center'>NOURRAIN</Text>
         <Text mt="$4" mb="$10" textAlign='center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
 
         <VStack position='absolute' alignSelf='center' bottom={Platform.OS === 'ios' ? "$10" : "$4"} gap="$4" width="$full">

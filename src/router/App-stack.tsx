@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen, ManageScreen, ShopScreen } from "@/screens";
+import { HomeScreen, NourrainScreen, ManageScreen, ShopScreen } from "@/screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +15,14 @@ const HomeStack = (): JSX.Element => {
         }}
       />
       <Stack.Screen
-        name="Manage"
+        name="Nourrain"
+        component={NourrainScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ManageNourrain"
         component={ManageScreen}
         options={{
           headerShown: false,
