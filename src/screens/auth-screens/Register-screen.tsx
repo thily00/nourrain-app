@@ -1,8 +1,8 @@
-import { Platform, Pressable } from 'react-native'
+import { Platform } from 'react-native'
 import BaseButton from '@/components/shared/BaseButton'
 import CustomSafeArea from '@/components/shared/CustomSafeArea'
 import TextInputField from '@/components/shared/TextInput'
-import { Box, VStack, Text, ProgressFilledTrack, Progress } from '@gluestack-ui/themed'
+import { Box, VStack, Text, ProgressFilledTrack, Progress, Pressable } from '@gluestack-ui/themed'
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Feather } from '@expo/vector-icons';
 import React from 'react'
@@ -31,6 +31,10 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
     navigation.goBack()
   }
 
+  const goToLogin = () => {
+    navigation.navigate('login') 
+  }  
+
   return (
     <CustomSafeArea statusBarStyle='dark-content' statusBarColor='white'>
       <Box flex={1} bg="$white" px="$4" pt="$10">
@@ -51,6 +55,9 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
 
         <VStack position='absolute' alignSelf='center' bottom={Platform.OS === 'ios' ? "$10" : "$4"} gap="$4" width="$full">
             <BaseButton name="S'inscrire" todo={register} btnVariant='solid'/>
+            <Pressable onPress={goToLogin}>
+              <Text fontSize="$sm" textAlign='center'>Vous n'avez pas de compte ? <Text color="$blue" fontWeight='$semibold'>S'inscrire</Text></Text>
+            </Pressable>
         </VStack>
       </Box>
     </CustomSafeArea>  
