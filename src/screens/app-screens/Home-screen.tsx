@@ -1,9 +1,17 @@
 import CustomSafeArea from "@/components/shared/CustomSafeArea";
 import BaseButton from "@/components/shared/BaseButton";
-import { Box, Text, VStack, ScrollView } from "@gluestack-ui/themed";
+import { Box, Text, VStack, ScrollView, Pressable } from "@gluestack-ui/themed";
 import React from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const HomeScreen = (): React.JSX.Element => {
+type Props = NativeStackScreenProps<any>;
+const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
+  const goToManage = () => {
+    navigation.navigate("Manage");
+  };
+  const goToShop = () => {
+    navigation.navigate("Shop");
+  };
   return (
     <CustomSafeArea>
       <ScrollView flex={1} bg="$white" px="$4">
@@ -25,7 +33,7 @@ const HomeScreen = (): React.JSX.Element => {
 
         <BaseButton
           name="Acheter des Guirk"
-          todo={() => console.log("test")}
+          todo={goToShop}
           btnVariant="solid"
         />
 
@@ -33,14 +41,20 @@ const HomeScreen = (): React.JSX.Element => {
           Mes nourrains
         </Text>
 
-        <Box bg="$grey" rounded="$md" mb="$4" px="$4">
+        <Pressable
+          onPress={goToManage}
+          bg="$grey"
+          rounded="$md"
+          mb="$4"
+          px="$4"
+        >
           <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
             36$
           </Text>
           <Text color="$black" p="$4" textAlign="center">
             Acheter des Guirk
           </Text>
-        </Box>
+        </Pressable>
 
         <Text color="$black" fontSize="$xl" mb="$2">
           Les nourrains que j’ai rejoint
