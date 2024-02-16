@@ -10,8 +10,14 @@ const useGLobalStore = create<GlobalStore & GlobalStoreActions>()(
             isLoading: false,
 
             // Actions
-            signOut: () => set({ userToken: "" }),
-            signIn: (userToken: string) => set({ userToken }),
+            signOut: () => {
+                set({ userToken: "" });
+                AsyncStorage.removeItem("userToken");
+            },
+            signIn: (userToken: string) => {
+                set({ userToken })
+                AsyncStorage.setItem("userToken", userToken);
+            },
             restoreToken: (userToken: string) => set({ userToken }),
             setIsLoading: (isLoading: boolean) => set({ isLoading }),
         }),

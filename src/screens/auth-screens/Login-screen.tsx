@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomSafeArea  from '@/components/shared/CustomSafeArea';
-import { Box, Text, VStack, Pressable } from '@gluestack-ui/themed';
+import { Box, Text, VStack, Pressable, useToast } from '@gluestack-ui/themed';
 import { Platform } from 'react-native';
 import TextInputField from '@/components/shared/TextInput';
 import BaseButton from '@/components/shared/BaseButton';
@@ -8,23 +8,46 @@ import { Feather } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { login } from '@/services/auth';
 import useGLobalStore from '@/store';
+import AppToast from '@/components/shared/Toast';
 
 
 type Props = NativeStackScreenProps<any>;
 const LoginScreen = ({navigation}: Props): React.JSX.Element => {
   const { signIn } = useGLobalStore();
+  const toast = useToast();
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
   const loginUser = async () => {
-    console.log(email, password)
-    const token = await login(email, password)
-    signIn(token);
+    if(email.trim() === '' || password.trim() === '') {
+      showToast('error', '', 'Veuillez renseigner tous les champs');
+      return;
+    }
+    await login(email, password)
+      .then(response => {
+        signIn(response.data.token);
+        showToast('success', '', 'Connexion réussie');
+      })
+      .catch(error => {
+        showToast('error', '', error.response.data);
+      })
   }
 
   const goToregister = () => {
     navigation.navigate('register')
+  }
+
+  const showToast = (action:any, message:string, description:string) => {
+    toast.show({
+        placement:"top",
+        render: ({ id }) => {
+          const toastId = "toast-" + id;
+          return (
+             <AppToast action={action} message={message} description={description} />
+          );
+        },
+    })
   }
 
   return (
