@@ -3,6 +3,7 @@ import BaseButton from "@/components/shared/BaseButton";
 import { Box, Text, VStack, ScrollView} from "@gluestack-ui/themed";
 import TextInputField from "@/components/shared/TextInput";
 import UserCard from "@/components/shared/UserCard";
+import TextAreaInput from "@/components/shared/TextAreaInput";
 
 const ManageScreen = (): React.JSX.Element => {
   return (
@@ -11,15 +12,9 @@ const ManageScreen = (): React.JSX.Element => {
         {/* <Text>Manager nourrain</Text> */}
 
         <TextInputField label='Nom du nourrain' placeholder='Entrez votre adresse email' type='text' value={"Team EduSign"} />
-        <TextInputField 
-          type='text' 
-          multiline={true}
-          nbOfLines={4} 
-          value={"Le nourrain"}
-          label='Description du nourrain' 
-          placeholder='Entrez votre adresse email' />
+        <TextAreaInput label='Description du nourrain' placeholder='Entrez votre adresse email' value={"Le nourrain lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae dolorem nobis"}/>
 
-        <VStack alignSelf='center' gap="$4" width="$full" mt="$4">
+        <VStack alignSelf='center' gap="$4" width="$full" mt="$8">
             <BaseButton name='Sauvegarder' todo={() => console.log('test')} btnVariant='solid'/>
             <BaseButton name="Cloturer" todo={() => console.log('test')} action="negative"/>
         </VStack>

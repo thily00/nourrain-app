@@ -2,12 +2,13 @@ import { Platform } from 'react-native'
 import BaseButton from '@/components/shared/BaseButton'
 import CustomSafeArea from '@/components/shared/CustomSafeArea'
 import TextInputField from '@/components/shared/TextInput'
-import { Box, VStack, Text, ProgressFilledTrack, Progress, Pressable } from '@gluestack-ui/themed'
+import { Box, VStack, Text, ProgressFilledTrack, Progress, Pressable, useToast } from '@gluestack-ui/themed'
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Feather } from '@expo/vector-icons';
 import React from 'react'
 import { register } from '@/services/auth'
 import useGLobalStore from '@/store'
+import AppToast from '@/components/shared/Toast'
 
 
 type Props = NativeStackScreenProps<any>;
@@ -21,11 +22,12 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
   const [confirmPassword, setConfirmPassword] = React.useState('')
   
   const { signIn } = useGLobalStore();
-
+  const toast = useToast();
 
   const registerUser = async () => {
     if(step === 1) {
       if(firstname.trim() === '' || lastname.trim() === '' || email.trim() === '') {
+        showToast('error', '', 'Veuillez renseigner tous les champs');  
         return
       }
       setStep(2)
@@ -35,12 +37,21 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
     
     if(step === 2) {
       if(password.trim() === '' || confirmPassword.trim() === '') {
+        showToast('error', '', 'Veuillez renseigner tous les champs');  
         return
       } else if( password !== confirmPassword){
+        showToast('error', '', 'Les mots de passe ne correspondent pas');  
         return
       }
-      const token = await register(firstname, lastname, email, password)
-      signIn(token);
+
+      await register(firstname, lastname, email, password)
+        .then(response => {
+          signIn(response.data.token);
+          showToast('success', '', 'Inscription réussie');
+        })
+        .catch(error => {
+          showToast('error', '', error.response.data);
+        })
     }
 
   }
@@ -57,6 +68,18 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
   const goToLogin = () => {
     navigation.navigate('login') 
   }  
+
+  const showToast = (action:any, message:string, description:string) => {
+    toast.show({
+        placement:"top",
+        render: ({ id }) => {
+          const toastId = "toast-" + id;
+          return (
+             <AppToast action={action} message={message} description={description} />
+          );
+        },
+    })
+  }
 
   return (
     <CustomSafeArea statusBarStyle='dark-content' statusBarColor='white'>

@@ -1,6 +1,6 @@
 import CustomSafeArea from "@/components/shared/CustomSafeArea";
 import BaseButton from "@/components/shared/BaseButton";
-import { Box, Text, VStack, ScrollView } from "@gluestack-ui/themed";
+import { Box, Text, VStack, ScrollView, Pressable } from "@gluestack-ui/themed";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
@@ -8,6 +8,10 @@ type Props = NativeStackScreenProps<any>;
 const NourrainScreen = ({ navigation }: Props): React.JSX.Element => {
     const goToManageScreen = () => {
         navigation.navigate("ManageNourrain");
+    }
+
+    const goToMapsScreen = () => {
+      navigation.navigate("Maps");
     }
 
   return (
@@ -33,23 +37,26 @@ const NourrainScreen = ({ navigation }: Props): React.JSX.Element => {
           86$
         </Text>
         <Text fontSize="$xl" color="$black" textAlign="center" mb="$8">
-          total
+          Solde total
         </Text>
         <VStack gap="$4" mb="$4" width="$full">
           <BaseButton
-            name="Créer un nourrain"
+            name="Ajouter un Guirk"
             todo={() => console.log("test")}
             btnVariant="solid"
           />
           <BaseButton
-            name="Rejoindre un nourrain"
+            name="Collecter"
             todo={() => console.log("test")}
             btnVariant="solid"
           />
         </VStack>
-        <Text fontSize="$xl" color="$black" textAlign="center" mb="$8">
-          total
-        </Text>
+        <Pressable onPress={goToMapsScreen}>
+          <Text fontSize="$xl" color="$black" textAlign="center" mb="$8" underline>
+            Ou les depenser ?
+          </Text>
+        </Pressable>
+        
       </ScrollView>
     </CustomSafeArea>
   );

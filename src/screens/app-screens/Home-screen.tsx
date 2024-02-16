@@ -3,9 +3,12 @@ import BaseButton from "@/components/shared/BaseButton";
 import { Box, Text, VStack, ScrollView, Pressable } from "@gluestack-ui/themed";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import useGLobalStore from "@/store";
 
 type Props = NativeStackScreenProps<any>;
 const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
+  const { signOut } = useGLobalStore();
+
   const goToNourrainScreen = () => {
     navigation.navigate("Nourrain");
   };
@@ -82,6 +85,13 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
             name="Rejoindre un nourrain"
             todo={() => console.log("test")}
             btnVariant="solid"
+          />
+
+          <BaseButton
+            name="Se deconnecter"
+            todo={signOut}
+            btnVariant="solid"
+            action="negative"
           />
         </VStack>
       </ScrollView>
