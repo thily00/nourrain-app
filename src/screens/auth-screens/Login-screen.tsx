@@ -74,7 +74,7 @@ const LoginScreen = ({navigation}: Props): React.JSX.Element => {
             </Pressable>
         </VStack>
       </Box>
-    </CustomSafeArea>      
+    </CustomSafeArea>
   )
 }
 
