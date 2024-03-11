@@ -7,7 +7,9 @@ import useGLobalStore from "@/store";
 
 type Props = NativeStackScreenProps<any>;
 const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
-  const { signOut } = useGLobalStore();
+  const { signOut} = useGLobalStore();
+  const firstname = useGLobalStore(state => state.firstname)
+  const wallet = useGLobalStore(state => state.wallet)
 
   const goToNourrainScreen = () => {
     navigation.navigate("Nourrain");
@@ -25,13 +27,13 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
           mb="$12"
           textAlign="center"
         >
-          Bienvenue Ilies
+          Bienvenue {firstname}
         </Text>
         <Text color="$black" fontSize="$xl">
           Mon solde
         </Text>
         <Text color="$black" pt="$8" mb="$4" textAlign="center" fontSize="$4xl">
-          36$
+          {wallet} $
         </Text>
 
         <BaseButton

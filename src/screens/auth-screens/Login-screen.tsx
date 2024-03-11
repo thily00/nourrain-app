@@ -24,9 +24,15 @@ const LoginScreen = ({navigation}: Props): React.JSX.Element => {
       showToast('error', '', 'Veuillez renseigner tous les champs');
       return;
     }
-    await login(email, password)
+    await login(email, password)    
       .then(response => {
-        signIn(response.data.token);
+        console.log(response.data);
+        signIn(
+          response.data.token, 
+          response.data.user.firstname,
+          response.data.user.lastname,
+          response.data.user.wallet
+        );
         showToast('success', '', 'Connexion réussie');
       })
       .catch(error => {
