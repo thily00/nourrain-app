@@ -46,7 +46,12 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
 
       await register(firstname, lastname, email, password)
         .then(response => {
-          signIn(response.data.token);
+          signIn(
+            response.data.token,
+            response.data.user.firstname,
+            response.data.user.lastname,
+            response.data.user.wallet
+          );
           showToast('success', '', 'Inscription réussie');
         })
         .catch(error => {
