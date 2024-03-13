@@ -1,24 +1,30 @@
 import CustomSafeArea from "@/components/shared/CustomSafeArea";
 import BaseButton from "@/components/shared/BaseButton";
-import { Box, Text, VStack, ScrollView, Pressable } from "@gluestack-ui/themed";
+import { Box, FlatList, Text, VStack, ScrollView, Pressable, ImageBackground } from "@gluestack-ui/themed";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import useGLobalStore from "@/store";
 import { me } from "@/services/user";
+import { Nourrain } from "@/types/app";
 
 type Props = NativeStackScreenProps<any>;
 const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
-  const { signOut, setUser, setCreateNourrains, setJoinedNourrains } = useGLobalStore();
+  const { signOut, setUserData } = useGLobalStore();
   const user = useGLobalStore((state) => state?.user);
   const createdNourrains = useGLobalStore((state) => state?.createNourrains);
   const joinedNourrains = useGLobalStore((state) => state?.joinedNourrains);
 
   const getInfo = async () => {
     const response = await me();
-    setUser(response.data.user);
-    setCreateNourrains(response.data.createNourrains);
-    setJoinedNourrains(response.data.joinedNourrains);
+    const data = response.data;
+    setUserData(data.user, data.createdNourrains, data.joinedNourrains);
   };
+
+  React.useEffect(() => {
+    navigation.addListener("focus", () => {
+      getInfo(); 
+    });
+  }, [user, createdNourrains, joinedNourrains]);
 
   React.useEffect(() => {
     getInfo();
@@ -40,18 +46,20 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
         <Text
           fontSize="$2xl"
           color="$black"
-          mt="$10"
-          mb="$12"
-          textAlign="center"
+          pt="$4"
+          my="$8"
         >
           Bienvenue {user?.firstname}
         </Text>
-        <Text color="$black" fontSize="$xl">
-          Mon solde
-        </Text>
-        <Text color="$black" pt="$8" mb="$4" textAlign="center" fontSize="$4xl">
-          {user?.wallet} $
-        </Text>
+        <Box bg="$primary500" rounded="$md" mb="$4">
+          <Text color="$primary500" fontSize="$md" bg="$primary50" w="$24" m="$3" p="$1" rounded="$full">
+            Mon solde
+          </Text>
+          <Text color="$black" pt="$8" mb="$4" textAlign="center" fontSize="$4xl">
+            {user?.wallet} $
+          </Text>
+        </Box>
+        
 
         <BaseButton
           name="Acheter des Guirk"
@@ -59,40 +67,59 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
           btnVariant="solid"
         />
 
-        {createdNourrains && createdNourrains.map((nourrain) => (
+        {createdNourrains && (
           <>
             <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
             Mes nourrains
             </Text>
-            <Pressable key={nourrain.id} bg="$grey" rounded="$md" mb="$4" px="$4" 
-              onPress={() =>  goToNourrainScreen(nourrain.id)}>
-              <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
-                {nourrain.wallet} $
-              </Text>
-              <Text color="$black" p="$4" textAlign="center">
-                {nourrain.name}
-              </Text>
-            </Pressable>
+            <FlatList 
+              data={createdNourrains} 
+              renderItem={({ item }: any) => (
+                <Pressable key={item.id} bg="$primary50" rounded="$md" mb="$4" mr="$4" w="$32" h="$24" 
+                  onPress={() =>  goToNourrainScreen(item.id)}>
+                    <ImageBackground source={require('../../../assets/nourback.png')} 
+                      resizeMode="cover" w="$full" h="$full" rounded="$md" imageStyle={{ borderRadius: 10 }}>
+                        <Box position="absolute" bottom="$1" left="$2">
+                          <Text color="$black" pt="$4" textAlign="left" fontSize="$sm">
+                            {item.name}
+                          </Text>
+                          <Text color="$black"  textAlign="left" fontSize="$2xl">
+                            {item.wallet} $
+                          </Text>
+                        </Box>
+                    </ImageBackground>
+                </Pressable>
+              )}
+              keyExtractor={item => item.id}
+              horizontal={true} 
+            />
           </>
-        ))}
+        )}
 
       
-        {joinedNourrains && joinedNourrains.map((nourrain) => (
+        {joinedNourrains && (
           <>
             <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
               Les nourrains que j’ai rejoint
             </Text>
-            <Pressable key={nourrain.id} bg="$grey" rounded="$md" mb="$4" px="$4" 
-              onPress={() => goToNourrainScreen(nourrain.id)}>
-              <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
-                {nourrain.wallet} $
-              </Text>
-              <Text color="$black" p="$4" textAlign="center">
-                {nourrain.name}
-              </Text>
-            </Pressable>
+            <FlatList 
+              data={createdNourrains} 
+              renderItem={({ item }: any) => (
+                <Pressable key={item.id} bg="$grey" rounded="$md" mb="$4" px="$4" mr="$4" 
+                  onPress={() =>  goToNourrainScreen(item.id)}>
+                  <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
+                    {item.wallet} $
+                  </Text>
+                  <Text color="$black" p="$4" textAlign="center">
+                    {item.name}
+                  </Text>
+                </Pressable>
+              )}
+              keyExtractor={item => item.id}
+              horizontal={true} 
+            />
           </>
-        ))}
+        )}
 
         <Text color="$black" fontSize="$xl" mb="$4">
           Accéder à plus de nourrain

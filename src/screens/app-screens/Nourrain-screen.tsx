@@ -49,7 +49,7 @@ const NourrainScreen = ({ navigation, route }: Props): React.JSX.Element => {
   }
 
   React.useEffect(() => {
-      const { id } = route.params;
+      const { id } = route.params as { id: number };
       load(id);
   }, []);
 

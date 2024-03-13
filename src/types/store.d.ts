@@ -12,8 +12,5 @@ export type GlobalStoreActions = {
     restoreToken: (userToken: string) => void;
     setIsLoading: (isLoading: boolean) => void;
     signIn: (userToken: string) => void;
-
-    setUser: (user: User) => void;
-    setCreateNourrains: (createNourrains: Nourrain[]) => void;
-    setJoinedNourrains: (joinedNourrains: Nourrain[]) => void;
+    setUserData: (user: User, createNourrains: Nourrain[], joinedNourrains: Nourrain[]) => void;
 }

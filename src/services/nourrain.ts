@@ -15,3 +15,8 @@ export function loadNourrain (id: number): Promise<any> {
     }
   })
 }
+
+export function addNourrain (name: string, description: string){
+  const data = { name, description }
+  return axiosRequest({ method: 'POST', url: '/nourrain/new', data: data })
+}
