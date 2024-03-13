@@ -8,7 +8,8 @@ import { me } from "@/services/user";
 
 type Props = NativeStackScreenProps<any>;
 const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
-  const { signOut, setUser, setCreateNourrains, setJoinedNourrains } = useGLobalStore();
+  const { signOut, setUser, setCreateNourrains, setJoinedNourrains } =
+    useGLobalStore();
   const user = useGLobalStore((state) => state?.user);
   const createdNourrains = useGLobalStore((state) => state?.createNourrains);
   const joinedNourrains = useGLobalStore((state) => state?.joinedNourrains);
@@ -33,6 +34,10 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
 
   const goToCreateNourrain = () => {
     navigation.navigate("CreateNourrain");
+  };
+  const goToJoinNourrain = () => {
+    console.log("rrrrr");
+    navigation.navigate("JoinNourrain");
   };
   return (
     <CustomSafeArea>
@@ -59,40 +64,53 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
           btnVariant="solid"
         />
 
-        {createdNourrains && createdNourrains.map((nourrain) => (
-          <>
-            <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
-            Mes nourrains
-            </Text>
-            <Pressable key={nourrain.id} bg="$grey" rounded="$md" mb="$4" px="$4" 
-              onPress={() =>  goToNourrainScreen(nourrain.id)}>
-              <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
-                {nourrain.wallet} $
+        {createdNourrains &&
+          createdNourrains.map((nourrain) => (
+            <>
+              <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
+                Mes nourrains
               </Text>
-              <Text color="$black" p="$4" textAlign="center">
-                {nourrain.name}
-              </Text>
-            </Pressable>
-          </>
-        ))}
+              <Pressable
+                key={nourrain.id}
+                bg="$grey"
+                rounded="$md"
+                mb="$4"
+                px="$4"
+                onPress={() => goToNourrainScreen(nourrain.id)}
+              >
+                <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
+                  {nourrain.wallet} $
+                </Text>
+                <Text color="$black" p="$4" textAlign="center">
+                  {nourrain.name}
+                </Text>
+              </Pressable>
+            </>
+          ))}
 
-      
-        {joinedNourrains && joinedNourrains.map((nourrain) => (
-          <>
-            <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
-              Les nourrains que j’ai rejoint
-            </Text>
-            <Pressable key={nourrain.id} bg="$grey" rounded="$md" mb="$4" px="$4" 
-              onPress={() => goToNourrainScreen(nourrain.id)}>
-              <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
-                {nourrain.wallet} $
+        {joinedNourrains &&
+          joinedNourrains.map((nourrain) => (
+            <>
+              <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
+                Les nourrains que j’ai rejoint
               </Text>
-              <Text color="$black" p="$4" textAlign="center">
-                {nourrain.name}
-              </Text>
-            </Pressable>
-          </>
-        ))}
+              <Pressable
+                key={nourrain.id}
+                bg="$grey"
+                rounded="$md"
+                mb="$4"
+                px="$4"
+                onPress={() => goToNourrainScreen(nourrain.id)}
+              >
+                <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
+                  {nourrain.wallet} $
+                </Text>
+                <Text color="$black" p="$4" textAlign="center">
+                  {nourrain.name}
+                </Text>
+              </Pressable>
+            </>
+          ))}
 
         <Text color="$black" fontSize="$xl" mb="$4">
           Accéder à plus de nourrain
@@ -105,7 +123,7 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
           />
           <BaseButton
             name="Rejoindre un nourrain"
-            todo={() => console.log("test")}
+            todo={goToJoinNourrain}
             btnVariant="solid"
           />
 
