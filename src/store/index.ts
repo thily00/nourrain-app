@@ -25,9 +25,12 @@ const useGLobalStore = create<GlobalStore & GlobalStoreActions>()(
             },
             restoreToken: (userToken: string) => set({ userToken }),
             setIsLoading: (isLoading: boolean) => set({ isLoading }),
-            setUser: (user) => set({ user }),
-            setCreateNourrains: (createNourrains) => set({ createNourrains }),
-            setJoinedNourrains: (joinedNourrains) => set({ joinedNourrains }),
+            // setUser: (user) => set({ user }),
+            // setCreateNourrains: (createNourrains) => set({ createNourrains }),
+            // setJoinedNourrains: (joinedNourrains) => set({ joinedNourrains }),
+            setUserData: (user, createNourrains, joinedNourrains) => {
+                set({ user, createNourrains, joinedNourrains });
+            }
         }),
         {
             name: "global-store",
