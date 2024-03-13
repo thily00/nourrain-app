@@ -9,12 +9,7 @@ import { Nourrain } from "@/types/app";
 
 type Props = NativeStackScreenProps<any>;
 const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
-<<<<<<< HEAD
   const { signOut, setUserData } = useGLobalStore();
-=======
-  const { signOut, setUser, setCreateNourrains, setJoinedNourrains } =
-    useGLobalStore();
->>>>>>> 539f2828628227d7658a01f09d1e9ec9e28c7df5
   const user = useGLobalStore((state) => state?.user);
   const createdNourrains = useGLobalStore((state) => state?.createNourrains);
   const joinedNourrains = useGLobalStore((state) => state?.joinedNourrains);
@@ -60,13 +55,16 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
         >
           Bienvenue {user?.firstname}
         </Text>
-        <Box bg="$primary500" rounded="$md" mb="$4">
-          <Text color="$primary500" fontSize="$md" bg="$primary50" w="$24" m="$3" p="$1" rounded="$full">
-            Mon solde
-          </Text>
-          <Text color="$black" pt="$8" mb="$4" textAlign="center" fontSize="$4xl">
-            {user?.wallet} $
-          </Text>
+        <Box bg="$primary500" h="$32" rounded="$md" mb="$4">
+          <ImageBackground source={require('../../../assets/nourback.png')} 
+            resizeMode="cover" w="$full" h="$full" imageStyle={{ borderRadius: 6 }}>
+            <Text color="$primary500" fontSize="$md" bg="$primary50" w="$24" m="$3" p="$1" pl="$2" rounded="$full">
+              Mon solde
+            </Text>
+            <Text color="$white" pt="$8" ml="$3" mb="$4" textAlign="left" fontSize="$4xl">
+              {user?.wallet} $
+            </Text>
+          </ImageBackground>
         </Box>
         
 
@@ -76,7 +74,6 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
           btnVariant="solid"
         />
 
-<<<<<<< HEAD
         {createdNourrains && (
           <>
             <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
@@ -86,18 +83,15 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
               data={createdNourrains} 
               renderItem={({ item }: any) => (
                 <Pressable key={item.id} bg="$primary50" rounded="$md" mb="$4" mr="$4" w="$32" h="$24" 
-                  onPress={() =>  goToNourrainScreen(item.id)}>
-                    <ImageBackground source={require('../../../assets/nourback.png')} 
-                      resizeMode="cover" w="$full" h="$full" rounded="$md" imageStyle={{ borderRadius: 10 }}>
-                        <Box position="absolute" bottom="$1" left="$2">
-                          <Text color="$black" pt="$4" textAlign="left" fontSize="$sm">
-                            {item.name}
-                          </Text>
-                          <Text color="$black"  textAlign="left" fontSize="$2xl">
-                            {item.wallet} $
-                          </Text>
-                        </Box>
-                    </ImageBackground>
+                  onPress={() => goToNourrainScreen(item.id)}>
+                    <Box position="absolute" bottom="$1" left="$2">
+                      <Text color="$black" pt="$4" textAlign="left" fontSize="$sm">
+                        {item.name}
+                      </Text>
+                      <Text color="$black" textAlign="left" fontSize="$2xl">
+                        {item.wallet} $
+                      </Text>
+                    </Box>
                 </Pressable>
               )}
               keyExtractor={item => item.id}
@@ -113,16 +107,18 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
               Les nourrains que j’ai rejoint
             </Text>
             <FlatList 
-              data={createdNourrains} 
+              data={joinedNourrains} 
               renderItem={({ item }: any) => (
-                <Pressable key={item.id} bg="$grey" rounded="$md" mb="$4" px="$4" mr="$4" 
-                  onPress={() =>  goToNourrainScreen(item.id)}>
-                  <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
-                    {item.wallet} $
-                  </Text>
-                  <Text color="$black" p="$4" textAlign="center">
-                    {item.name}
-                  </Text>
+                <Pressable key={item.id} bg="$primary50" rounded="$md" mb="$4" mr="$4" w="$32" h="$24"
+                  onPress={() => goToNourrainScreen(item.id)}>
+                  <Box position="absolute" bottom="$1" left="$2">
+                    <Text color="$black" pt="$4" textAlign="left" fontSize="$sm">
+                      {item.name}
+                    </Text>
+                    <Text color="$black" textAlign="left" fontSize="$2xl">
+                      {item.wallet} $
+                    </Text>
+                  </Box>
                 </Pressable>
               )}
               keyExtractor={item => item.id}
@@ -130,55 +126,6 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
             />
           </>
         )}
-=======
-        {createdNourrains &&
-          createdNourrains.map((nourrain) => (
-            <>
-              <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
-                Mes nourrains
-              </Text>
-              <Pressable
-                key={nourrain.id}
-                bg="$grey"
-                rounded="$md"
-                mb="$4"
-                px="$4"
-                onPress={() => goToNourrainScreen(nourrain.id)}
-              >
-                <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
-                  {nourrain.wallet} $
-                </Text>
-                <Text color="$black" p="$4" textAlign="center">
-                  {nourrain.name}
-                </Text>
-              </Pressable>
-            </>
-          ))}
-
-        {joinedNourrains &&
-          joinedNourrains.map((nourrain) => (
-            <>
-              <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
-                Les nourrains que j’ai rejoint
-              </Text>
-              <Pressable
-                key={nourrain.id}
-                bg="$grey"
-                rounded="$md"
-                mb="$4"
-                px="$4"
-                onPress={() => goToNourrainScreen(nourrain.id)}
-              >
-                <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
-                  {nourrain.wallet} $
-                </Text>
-                <Text color="$black" p="$4" textAlign="center">
-                  {nourrain.name}
-                </Text>
-              </Pressable>
-            </>
-          ))}
->>>>>>> 539f2828628227d7658a01f09d1e9ec9e28c7df5
 
         <Text color="$black" fontSize="$xl" mb="$4">
           Accéder à plus de nourrain

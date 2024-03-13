@@ -20,3 +20,7 @@ export function addNourrain (name: string, description: string){
   const data = { name, description }
   return axiosRequest({ method: 'POST', url: '/nourrain/new', data: data })
 }
+
+export function joinNourrain (code: string){
+  return axiosRequest({ method: 'PATCH', url: `/nourrain/join`, data: { code: code } })
+}
