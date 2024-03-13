@@ -9,7 +9,12 @@ import { Nourrain } from "@/types/app";
 
 type Props = NativeStackScreenProps<any>;
 const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
+<<<<<<< HEAD
   const { signOut, setUserData } = useGLobalStore();
+=======
+  const { signOut, setUser, setCreateNourrains, setJoinedNourrains } =
+    useGLobalStore();
+>>>>>>> 539f2828628227d7658a01f09d1e9ec9e28c7df5
   const user = useGLobalStore((state) => state?.user);
   const createdNourrains = useGLobalStore((state) => state?.createNourrains);
   const joinedNourrains = useGLobalStore((state) => state?.joinedNourrains);
@@ -40,6 +45,10 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
   const goToCreateNourrain = () => {
     navigation.navigate("CreateNourrain");
   };
+  const goToJoinNourrain = () => {
+    console.log("rrrrr");
+    navigation.navigate("JoinNourrain");
+  };
   return (
     <CustomSafeArea>
       <ScrollView flex={1} bg="$white" px="$4">
@@ -67,6 +76,7 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
           btnVariant="solid"
         />
 
+<<<<<<< HEAD
         {createdNourrains && (
           <>
             <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
@@ -120,6 +130,55 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
             />
           </>
         )}
+=======
+        {createdNourrains &&
+          createdNourrains.map((nourrain) => (
+            <>
+              <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
+                Mes nourrains
+              </Text>
+              <Pressable
+                key={nourrain.id}
+                bg="$grey"
+                rounded="$md"
+                mb="$4"
+                px="$4"
+                onPress={() => goToNourrainScreen(nourrain.id)}
+              >
+                <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
+                  {nourrain.wallet} $
+                </Text>
+                <Text color="$black" p="$4" textAlign="center">
+                  {nourrain.name}
+                </Text>
+              </Pressable>
+            </>
+          ))}
+
+        {joinedNourrains &&
+          joinedNourrains.map((nourrain) => (
+            <>
+              <Text color="$black" fontSize="$xl" mt="$4" mb="$2">
+                Les nourrains que j’ai rejoint
+              </Text>
+              <Pressable
+                key={nourrain.id}
+                bg="$grey"
+                rounded="$md"
+                mb="$4"
+                px="$4"
+                onPress={() => goToNourrainScreen(nourrain.id)}
+              >
+                <Text color="$black" pt="$8" textAlign="center" fontSize="$2xl">
+                  {nourrain.wallet} $
+                </Text>
+                <Text color="$black" p="$4" textAlign="center">
+                  {nourrain.name}
+                </Text>
+              </Pressable>
+            </>
+          ))}
+>>>>>>> 539f2828628227d7658a01f09d1e9ec9e28c7df5
 
         <Text color="$black" fontSize="$xl" mb="$4">
           Accéder à plus de nourrain
@@ -132,7 +191,7 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
           />
           <BaseButton
             name="Rejoindre un nourrain"
-            todo={() => console.log("test")}
+            todo={goToJoinNourrain}
             btnVariant="solid"
           />
 

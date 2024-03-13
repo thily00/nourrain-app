@@ -8,5 +8,6 @@ export { default as HomeScreen } from "./app-screens/Home-screen";
 export { default as ManageScreen } from "./app-screens/Manage-nourrain-screen";
 export { default as ShopScreen } from "./app-screens/Shop-screen";
 export { default as CreateNourrain } from "./app-screens/Create-nourrain";
+export { default as JoinNourrain } from "./app-screens/Join-nourrain";
 export { default as NourrainScreen } from "./app-screens/Nourrain-screen";
 export { default as MapsScreen } from "./app-screens/Maps-screen";

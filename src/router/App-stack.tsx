@@ -5,6 +5,7 @@ import {
   ManageScreen,
   ShopScreen,
   CreateNourrain,
+  JoinNourrain,
   MapsScreen,
 } from "@/screens";
 
@@ -45,6 +46,13 @@ const HomeStack = (): JSX.Element => {
       <Stack.Screen
         name="CreateNourrain"
         component={CreateNourrain}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="JoinNourrain"
+        component={JoinNourrain}
         options={{
           headerShown: false,
         }}
