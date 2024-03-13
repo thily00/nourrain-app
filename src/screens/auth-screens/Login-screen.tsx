@@ -26,13 +26,7 @@ const LoginScreen = ({navigation}: Props): React.JSX.Element => {
     }
     await login(email, password)    
       .then(response => {
-        console.log(response.data);
-        signIn(
-          response.data.token, 
-          response.data.user.firstname,
-          response.data.user.lastname,
-          response.data.user.wallet
-        );
+        signIn(response.data.token);
         showToast('success', '', 'Connexion réussie');
       })
       .catch(error => {

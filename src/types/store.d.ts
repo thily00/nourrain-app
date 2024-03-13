@@ -1,14 +1,19 @@
+import { User, Nourrain } from './app';
 export type GlobalStore = {
     userToken : string;
     isLoading : boolean;
-    firstname: string;
-    lastname: string;
-    wallet: number;
+    user: User | null;
+    createNourrains: Nourrain[] | [];
+    joinedNourrains: Nourrain[] | [];
 };
 
 export type GlobalStoreActions = {
     signOut: () => void;
     restoreToken: (userToken: string) => void;
     setIsLoading: (isLoading: boolean) => void;
-    signIn: (userToken: string, firstname:string, lastname:string, wallet: number) => void;
+    signIn: (userToken: string) => void;
+
+    setUser: (user: User) => void;
+    setCreateNourrains: (createNourrains: Nourrain[]) => void;
+    setJoinedNourrains: (joinedNourrains: Nourrain[]) => void;
 }

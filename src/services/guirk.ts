@@ -9,3 +9,7 @@ export function getAllGuirkPricingItems(): Promise<AxiosResponse<GuirkPricingIte
 export function createCheckout(guirkPricingItemId: number): Promise<AxiosResponse<CreateCheckout>> {
   return axiosRequest.post('/guirk/create-checkout', { id: guirkPricingItemId });
 }
+
+export function add (id: number){
+  return axiosRequest({ method: 'PATCH', url: `/nourrain/increment?id=${id}` })
+}
