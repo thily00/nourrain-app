@@ -10,21 +10,24 @@ const useGLobalStore = create<GlobalStore & GlobalStoreActions>()(
             isLoading: false,
 
             //user info
-            firstname: "",
-            lastname: "",
-            wallet: 0,
+            user: null,
+            createNourrains: [],
+            joinedNourrains: [],
 
             // Actions
+            signIn: (userToken: string) => {
+                set({ userToken})
+                AsyncStorage.setItem("userToken", userToken);
+            },
             signOut: () => {
                 set({ userToken: "" });
                 AsyncStorage.removeItem("userToken");
             },
-            signIn: (userToken: string, firstname:string, lastname:string, wallet:number) => {
-                set({ userToken, firstname, lastname, wallet})
-                AsyncStorage.setItem("userToken", userToken);
-            },
             restoreToken: (userToken: string) => set({ userToken }),
             setIsLoading: (isLoading: boolean) => set({ isLoading }),
+            setUser: (user) => set({ user }),
+            setCreateNourrains: (createNourrains) => set({ createNourrains }),
+            setJoinedNourrains: (joinedNourrains) => set({ joinedNourrains }),
         }),
         {
             name: "global-store",
