@@ -1,5 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen, NourrainScreen, ManageScreen, ShopScreen, MapsScreen } from "@/screens";
+import {
+  HomeScreen,
+  NourrainScreen,
+  ManageScreen,
+  ShopScreen,
+  CreateNourrain,
+  MapsScreen,
+} from "@/screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +38,13 @@ const HomeStack = (): JSX.Element => {
       <Stack.Screen
         name="Shop"
         component={ShopScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CreateNourrain"
+        component={CreateNourrain}
         options={{
           headerShown: false,
         }}

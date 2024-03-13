@@ -31,6 +31,9 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
     navigation.navigate("Shop");
   };
 
+  const goToCreateNourrain = () => {
+    navigation.navigate("CreateNourrain");
+  };
   return (
     <CustomSafeArea>
       <ScrollView flex={1} bg="$white" px="$4">
@@ -97,7 +100,7 @@ const HomeScreen = ({ navigation }: Props): React.JSX.Element => {
         <VStack gap="$4" width="$full">
           <BaseButton
             name="Créer un nourrain"
-            todo={() => console.log("test")}
+            todo={goToCreateNourrain}
             btnVariant="solid"
           />
           <BaseButton
