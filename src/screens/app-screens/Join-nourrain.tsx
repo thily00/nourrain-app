@@ -1,6 +1,6 @@
 import CustomSafeArea from "@/components/shared/CustomSafeArea";
 import BaseButton from "@/components/shared/BaseButton";
-import { Box, Text, VStack, ScrollView, useToast } from "@gluestack-ui/themed";
+import { Box, Text, VStack, ScrollView, useToast, HStack } from "@gluestack-ui/themed";
 import TextInputField from "@/components/shared/TextInput";
 import UserCard from "@/components/shared/UserCard";
 import TextAreaInput from "@/components/shared/TextAreaInput";
@@ -8,6 +8,7 @@ import { joinNourrain } from "@/services/nourrain";
 import React from "react";
 import AppToast from "@/components/shared/Toast";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Platform } from "react-native";
 
 type Props = NativeStackScreenProps<any>;
 const JoinNourrain = ({navigation}: Props): React.JSX.Element => {
@@ -44,6 +45,11 @@ const JoinNourrain = ({navigation}: Props): React.JSX.Element => {
     <CustomSafeArea>
       <ScrollView flex={1} bg="$white" pt="$4" px="$4">
         {/* <Text>Manager nourrain</Text> */}
+        <HStack justifyContent="space-between" alignItems="center" mt={Platform.OS === 'ios' ?  "$16" : "$8"} mb="$8">
+          <Text fontSize="$2xl" color="$black" pt="$4">
+            Rejoindre un nourrain
+          </Text>
+        </HStack>
 
         <TextInputField
           label="Rejoindre un nourrain"

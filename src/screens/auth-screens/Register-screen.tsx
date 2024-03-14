@@ -46,12 +46,7 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
 
       await register(firstname, lastname, email, password)
         .then(response => {
-          signIn(
-            response.data.token,
-            response.data.user.firstname,
-            response.data.user.lastname,
-            response.data.user.wallet
-          );
+          signIn( response.data.token );
           showToast('success', '', 'Inscription réussie');
         })
         .catch(error => {
@@ -123,7 +118,7 @@ const RegisterScreen = ({navigation}: Props): React.JSX.Element => {
         <VStack position='absolute' alignSelf='center' bottom={Platform.OS === 'ios' ? "$10" : "$4"} gap="$4" width="$full">
             <BaseButton name="S'inscrire" todo={registerUser} btnVariant='solid'/>
             <Pressable onPress={goToLogin}>
-              <Text fontSize="$sm" textAlign='center'>Vous n'avez pas de compte ? <Text color="$primary500" fontWeight='$semibold'>S'inscrire</Text></Text>
+              <Text fontSize="$sm" textAlign='center'>Vous avez déja un compte ? <Text color="$primary500" fontWeight='$semibold'>Se connecter</Text></Text>
             </Pressable>
         </VStack>
       </Box>

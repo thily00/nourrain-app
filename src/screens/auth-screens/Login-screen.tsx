@@ -61,8 +61,8 @@ const LoginScreen = ({navigation}: Props): React.JSX.Element => {
         <Text fontSize="$2xl" color='$black' pt="$2" mt="$10">Bienvenue 👋</Text>
         <Text mb="$10">Veuillez renseigner vos identifiants pour vous connecter</Text>
 
-        <TextInputField label='Email *' placeholder='Entrez votre adresse email' type='text' value={email} onChange={setEmail}/>
-        <TextInputField label='Mot de passe *' placeholder='Entrez votre mot de passe' type='password' value={password} onChange={setPassword}/>
+        <TextInputField label='Email' placeholder='Entrez votre adresse email' type='text' value={email} onChange={setEmail}/>
+        <TextInputField label='Mot de passe' placeholder='Entrez votre mot de passe' type='password' value={password} onChange={setPassword}/>
         <Pressable>
           <Text fontSize="$sm" textAlign='right' color="$primary500">Mot de passe oublié ?</Text>
         </Pressable>

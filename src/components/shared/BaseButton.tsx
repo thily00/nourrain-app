@@ -7,15 +7,16 @@ type BaseButtonProps = {
     name?: string,
     action?:  "primary" | "negative"
     isDisabled?: boolean
+    width?: string
 }
 
-const BaseButton:React.FC<BaseButtonProps> = ({todo, btnVariant, name, action, isDisabled}) => {
+const BaseButton:React.FC<BaseButtonProps> = ({todo, btnVariant, name, action, isDisabled, width}) => {
   return (
     <Button
       size="md"
       variant={btnVariant ? btnVariant : "solid"}
       action={action ? action : "primary"}
-      width="$full"
+      w={width ? width : "$full"}
       onPress={todo}
       isDisabled={isDisabled ? true : false }>
         <ButtonText>{name}</ButtonText>
