@@ -1,11 +1,12 @@
 import CustomSafeArea from "@/components/shared/CustomSafeArea";
 import BaseButton from "@/components/shared/BaseButton";
-import { Box, Text, VStack, ScrollView } from "@gluestack-ui/themed";
+import { HStack, Text, VStack, ScrollView } from "@gluestack-ui/themed";
 import TextInputField from "@/components/shared/TextInput";
 import TextAreaInput from "@/components/shared/TextAreaInput";
 import { addNourrain } from "@/services/nourrain";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Platform } from "react-native";
 
 type Props = NativeStackScreenProps<any>;
 const CreateNourrain = ({navigation}: Props): React.JSX.Element => {
@@ -28,7 +29,12 @@ const CreateNourrain = ({navigation}: Props): React.JSX.Element => {
     <CustomSafeArea>
       <ScrollView flex={1} bg="$white" pt="$4" px="$4">
         {/* <Text>Manager nourrain</Text> */}
-
+        <HStack justifyContent="space-between" alignItems="center" mt={Platform.OS === 'ios' ?  "$16" : "$8"} mb="$8">
+          <Text fontSize="$2xl" color="$black" pt="$4">
+            Créer un nourrain
+          </Text>
+        </HStack>
+        
         <TextInputField
           label="Nom du nourrain"
           placeholder="Entrez votre adresse email"

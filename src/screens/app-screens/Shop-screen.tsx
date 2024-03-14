@@ -1,5 +1,5 @@
 import CustomSafeArea from "@/components/shared/CustomSafeArea";
-import { Box, Text, ScrollView, Pressable } from "@gluestack-ui/themed";
+import { Box, Text, ScrollView, Pressable, HStack } from "@gluestack-ui/themed";
 import React, {useEffect, useState} from "react";
 import {
   StripeProvider,
@@ -8,11 +8,13 @@ import {
   useConfirmPayment,
 } from "@stripe/stripe-react-native";
 import {createCheckout, getAllGuirkPricingItems} from "@/services/guirk";
-import {Alert} from "react-native";
+import {Alert, Platform} from "react-native";
 import {MessageEnum} from "@/enums/message.enum";
 import {GuirkPricingItem} from "@/types/api";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const ShopScreen = (): React.JSX.Element => {
+type Props = NativeStackScreenProps<any>;
+const ShopScreen = ({navigation}: Props): React.JSX.Element => {
   const [pricingItems, setPricingItems] = useState<GuirkPricingItem[] | null>(null);
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
@@ -26,6 +28,10 @@ const ShopScreen = (): React.JSX.Element => {
         console.error(err);
       });
   }, []);
+
+  const goBack = () => {
+    navigation.goBack();
+  };
 
   const handlePress = async (prop: GuirkPricingItem) => {
     createCheckout(prop.id)
@@ -53,7 +59,9 @@ const ShopScreen = (): React.JSX.Element => {
 
     presentPaymentSheet().then((ev) => {
       // FIXME: can be improved
-      Alert.alert("Nous avons bien reçu votre paiement, votre solde sera mis à jour dans quelques secondes");
+      Alert.alert("Nous avons bien reçu votre paiement", "votre solde sera mis à jour dans quelques secondes", [
+        { text: "OK", onPress: () => goBack()}
+      ]);
     }).catch(() => {
       Alert.alert(MessageEnum.GENERIC_ERROR);
     })
@@ -68,18 +76,24 @@ const ShopScreen = (): React.JSX.Element => {
     >
       <CustomSafeArea>
         <ScrollView flex={1} bg="$white" pt="$4" px="$4">
-          <Text fontSize="$4xl" color="$black" mt="$10" pt="$10" mb="$12">
+          {/* <Text fontSize="$4xl" color="$black" mt="$10" pt="$10" mb="$12">
+            Boutique
+          </Text> */}
+
+          <HStack justifyContent="space-between" alignItems="center" mt={Platform.OS === 'ios' ?  "$16" : "$8"} mb="$8">
+          <Text fontSize="$2xl" color="$black" pt="$4">
             Boutique
           </Text>
+        </HStack>
           {pricingItems ?
                 pricingItems.map((prop, key) => {
                   return (
                       <Box bg="$white" key={key}>
-                        <Text fontSize="$xl" color="$black" mb="$4">
+                        <Text fontSize="$lg" color="$black" mb="$2">
                           Pack de {prop.amount} Guirk
                         </Text>
-                        <Pressable onPress={() => handlePress(prop)} bg="$grey" rounded="$md" mb="$4" px="$4">
-                          <Text color="$black" p="$4" textAlign="center" fontSize="$xl">
+                        <Pressable onPress={() => handlePress(prop)} bg="$primary500" rounded="$md" mb="$8" px="$4">
+                          <Text color="$white" p="$4" textAlign="center" fontSize="$xl">
                             {prop.euro_price} €
                           </Text>
                         </Pressable>
